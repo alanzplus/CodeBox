@@ -16,6 +16,8 @@
         <!--project related-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.javaVersion>1.8</project.build.javaVersion>
+        <algorithm-toolbox.version>1.0.0-SNAPSHOT</algorithm-toolbox.version>
+        <commons.version>1.0.0-SNAPSHOT</commons.version>
 
         <!--library versions-->
         <junit.version>4.8.2</junit.version>
@@ -37,6 +39,19 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--internal dependencies-->
+            <dependency>
+                <groupId>org.zlambda.sandbox.algtoolbox</groupId>
+                <artifactId>algorithm-tool-box</artifactId>
+                <version>${algorithm-toolbox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.zlambda.sandbox.commons</groupId>
+                <artifactId>commons</artifactId>
+                <version>${commons.version}</version>
+            </dependency>
+
+            <!--external dependencies-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
