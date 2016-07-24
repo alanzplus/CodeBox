@@ -43,7 +43,7 @@ public class FastLFUTest {
         Assert.assertNotNull(next.next);
         Assert.assertEquals(1, next.next.set.size());
         Assert.assertEquals("hello", next.next.set.iterator().next().entry.key());
-        Assert.assertEquals(1, (int)next.next.set.iterator().next().entry.value());
+        Assert.assertEquals(1, (int) next.next.set.iterator().next().entry.value());
     }
 
     @Test
@@ -56,49 +56,49 @@ public class FastLFUTest {
 
         cache.put("A", 1);
         Assert.assertEquals("A", internal.get("A").entry.key());
-        Assert.assertEquals(1, (int)internal.get("A").entry.value());
+        Assert.assertEquals(1, (int) internal.get("A").entry.value());
         Assert.assertEquals(0, internal.get("A").freqNode.freq);
 
         FastLFU.FreqNode<String, Integer> head = internal.get("A").freqNode.prev;
 
         cache.put("B", 2);
         Assert.assertEquals("B", internal.get("B").entry.key());
-        Assert.assertEquals(2, (int)internal.get("B").entry.value());
+        Assert.assertEquals(2, (int) internal.get("B").entry.value());
         Assert.assertEquals(0, internal.get("B").freqNode.freq);
 
         cache.put("C", 3);
         Assert.assertEquals("C", internal.get("C").entry.key());
-        Assert.assertEquals(3, (int)internal.get("C").entry.value());
+        Assert.assertEquals(3, (int) internal.get("C").entry.value());
         Assert.assertEquals(0, internal.get("C").freqNode.freq);
 
         Assert.assertEquals(internal.get("A").freqNode, internal.get("B").freqNode);
         Assert.assertEquals(internal.get("C").freqNode, internal.get("B").freqNode);
         Assert.assertNull(internal.get("A").freqNode.next);
 
-        Assert.assertEquals(1, (int)cache.get("A"));
+        Assert.assertEquals(1, (int) cache.get("A"));
         Assert.assertEquals(1, internal.get("A").freqNode.freq);
         Assert.assertNull(internal.get("A").freqNode.next);
         Assert.assertEquals(internal.get("B").freqNode.next, internal.get("A").freqNode);
 
-        Assert.assertEquals(2, (int)cache.get("B"));
+        Assert.assertEquals(2, (int) cache.get("B"));
         Assert.assertEquals(1, internal.get("B").freqNode.freq);
         Assert.assertEquals(internal.get("A").freqNode, internal.get("B").freqNode);
         Assert.assertEquals(internal.get("C").freqNode.next, internal.get("B").freqNode);
 
-        Assert.assertEquals(3, (int)cache.get("C"));
+        Assert.assertEquals(3, (int) cache.get("C"));
         Assert.assertEquals(1, internal.get("C").freqNode.freq);
         Assert.assertEquals(internal.get("A").freqNode, internal.get("C").freqNode);
         Assert.assertEquals(3, internal.get("A").freqNode.set.size());
 
         Assert.assertEquals(head, internal.get("A").freqNode.prev);
 
-        Assert.assertEquals(1, (int)cache.get("A"));
-        Assert.assertEquals(1, (int)cache.get("A"));
-        Assert.assertEquals(2, (int)cache.get("B"));
+        Assert.assertEquals(1, (int) cache.get("A"));
+        Assert.assertEquals(1, (int) cache.get("A"));
+        Assert.assertEquals(2, (int) cache.get("B"));
 
         Cache.Entry<String, Integer> victim = cache.victim();
         Assert.assertEquals("C", victim.key());
-        Assert.assertEquals(3, (int)victim.value());
+        Assert.assertEquals(3, (int) victim.value());
 
         /**
          * Test evict

@@ -1,8 +1,8 @@
 package org.zlambda.sandbox.algtoolbox.cache;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.zlambda.sandbox.commons.Preconditions;
+import org.zlambda.sandbox.commons.annotations.NotNull;
+import org.zlambda.sandbox.commons.annotations.Nullable;
 import org.zlambda.sandbox.commons.annotations.VisibleForTesting;
 
 import java.util.HashMap;
@@ -12,60 +12,16 @@ import java.util.Set;
 
 /**
  * An O(1) algorithm for implementing the LFU cache eviction scheme
+ *
  * @see <a href="http://dhruvbird.com/lfu.pdf">reference</a>
  */
-public class FastLFU<K, V> implements Cache<K,V> {
+public class FastLFU<K, V> implements Cache<K, V> {
     private final int capacity;
     private final Map<K, CacheNode<K, V>> cache = new HashMap<>();
     private final FreqNode<K, V> head = new FreqNode<>(-1);
 
     public FastLFU(int capacity) {
         this.capacity = capacity;
-    }
-
-    @Override public void put(K key, V value) {
-        if (cache.size() == capacity) {
-            evict();
-        }
-        FreqNode<K, V> nextFreqNode = head.next;
-        if (null == nextFreqNode || 0L != nextFreqNode.freq) {
-            nextFreqNode = new FreqNode<>(0L);
-            FreqNode.insertAfter(head, nextFreqNode);
-        }
-        cache.put(
-            key,
-            new CacheNode<>(new FastLFUEntry<>(key, value)).register(nextFreqNode)
-        );
-    }
-
-    @Override public V get(K key) {
-        CacheNode<K, V> cacheNode = cache.get(key);
-        if (null == cacheNode) {
-            return null;
-        }
-        promoteCacheNode(cacheNode);
-        return cacheNode.entry.value();
-    }
-
-    @Override public Entry<K, V> victim() {
-        return null == head.next ? null : head.next.set.iterator().next().entry;
-    }
-
-    @Override public int size() {
-        return cache.size();
-    }
-
-    @Override public int capacity() {
-        return capacity;
-    }
-
-    private Entry<K, V> evict() {
-        return cache.remove(victim().key()).unregister().entry;
-    }
-
-    @VisibleForTesting
-    Map<K, CacheNode<K, V>> cache() {
-        return cache;
     }
 
     @VisibleForTesting
@@ -84,10 +40,60 @@ public class FastLFU<K, V> implements Cache<K,V> {
         cacheNode.register(next);
     }
 
+    @Override
+    public void put(K key, V value) {
+        if (cache.size() == capacity) {
+            evict();
+        }
+        FreqNode<K, V> nextFreqNode = head.next;
+        if (null == nextFreqNode || 0L != nextFreqNode.freq) {
+            nextFreqNode = new FreqNode<>(0L);
+            FreqNode.insertAfter(head, nextFreqNode);
+        }
+        cache.put(
+                key,
+                new CacheNode<>(new FastLFUEntry<>(key, value)).register(nextFreqNode)
+        );
+    }
+
+    @Override
+    public V get(K key) {
+        CacheNode<K, V> cacheNode = cache.get(key);
+        if (null == cacheNode) {
+            return null;
+        }
+        promoteCacheNode(cacheNode);
+        return cacheNode.entry.value();
+    }
+
+    @Override
+    public Entry<K, V> victim() {
+        return null == head.next ? null : head.next.set.iterator().next().entry;
+    }
+
+    @Override
+    public int size() {
+        return cache.size();
+    }
+
+    @Override
+    public int capacity() {
+        return capacity;
+    }
+
+    private Entry<K, V> evict() {
+        return cache.remove(victim().key()).unregister().entry;
+    }
+
+    @VisibleForTesting
+    Map<K, CacheNode<K, V>> cache() {
+        return cache;
+    }
+
     @VisibleForTesting
     static class FreqNode<K, V> {
-        long freq;
         final Set<CacheNode<K, V>> set = new LinkedHashSet<>();
+        long freq;
         FreqNode<K, V> prev;
         FreqNode<K, V> next;
 
@@ -95,24 +101,11 @@ public class FastLFU<K, V> implements Cache<K,V> {
             this.freq = freq;
         }
 
-        FreqNode<K, V> addCacheNode(CacheNode<K, V> cacheNode) {
-            set.add(cacheNode);
-            return this;
-        }
-
-        FreqNode<K, V> removeCacheNode(CacheNode<K, V> cacheNode) {
-            set.remove(cacheNode);
-            if (set.isEmpty()) {
-                remove(this);
-            }
-            return this;
-        }
-
         /**
          * Double-Linked List Utilities
          */
         static <K, V> FreqNode<K, V>
-        insertAfter(@NotNull FreqNode<K, V> curr,@NotNull FreqNode<K, V> newNode) {
+        insertAfter(@NotNull FreqNode<K, V> curr, @NotNull FreqNode<K, V> newNode) {
             Preconditions.checkArgument(null != curr && null != newNode, "arguments cannot be null");
             newNode.next = curr.next;
             curr.next = newNode;
@@ -137,6 +130,19 @@ public class FastLFU<K, V> implements Cache<K,V> {
             target.prev = null;
             target.next = null;
             return target;
+        }
+
+        FreqNode<K, V> addCacheNode(CacheNode<K, V> cacheNode) {
+            set.add(cacheNode);
+            return this;
+        }
+
+        FreqNode<K, V> removeCacheNode(CacheNode<K, V> cacheNode) {
+            set.remove(cacheNode);
+            if (set.isEmpty()) {
+                remove(this);
+            }
+            return this;
         }
     }
 
@@ -166,16 +172,19 @@ public class FastLFU<K, V> implements Cache<K,V> {
     static class FastLFUEntry<K, V> implements Entry<K, V> {
         private final K key;
         private final V value;
+
         FastLFUEntry(K key, V value) {
             this.key = key;
             this.value = value;
         }
 
-        @Override public K key() {
+        @Override
+        public K key() {
             return key;
         }
 
-        @Override public V value() {
+        @Override
+        public V value() {
             return value;
         }
     }
