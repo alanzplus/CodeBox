@@ -8,7 +8,7 @@ This repo servers as a collection of implemetions of data structure and algorith
 A constant time LFU implmentation based on paper [An O(1) algorithm for implementing the LFU cache eviction scheme](http://dhruvbird.com/lfu.pdf).
 
 ### Iterative Transformer
-A really tiny and simple framework for writing iterative program in a recursive like fashion.
+[IterativeTransformer](https://github.com/alanzplus/Sandbox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/IterativeTransformer.java) is a really tiny and simple framework (40 lines of code) for writing iterative program in a recursive like fashion.
 
 For example, given the following binary tree data structure
 
@@ -42,8 +42,7 @@ We can write typical recursive traversal as
 
 ```java
 /**
- * The following recursive traversal is not the most elegant one, sine we can simplify two functions
- * into one like
+ * The following recursive traversal is not the most elegant one, since we can simplify two functions into one like
  *
  * List<Integer> traverse(TreeNode node) {
  *      List<Integer> ret = new ArrayList<>();
@@ -73,7 +72,7 @@ private preorderRecursive(TreeNode node, List<Integer> ret) {
 }
 ```
 
-Then by using the `IterativeTransformer` we can change the above implementation into iterative but writing in a recursive way
+Then by using the `IterativeTransformer` we can change the above implementation into iterative but writing in a recursive like way
 
 ```java
 private List<Integer> traverse(TreeNode node) {
