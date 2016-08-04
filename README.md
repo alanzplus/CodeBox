@@ -94,3 +94,68 @@ private static class Preorder {
     }
 }
 ```
+
+Parameters and return value are passing using the user define constructor interface. For example, given the original recursive function like
+
+```java
+RetType recursiveFun(ArgType1 arg1, ArgType2 arg2, ..., ArgTypeN argN) {
+    ...
+}
+```
+
+then it is recommended to define the recursive object constructor interface like
+
+```java
+class RecursiveObject {
+    RecursiveObject(ArgType1 arg1, ArgType2 arg2, ..., ArgTypeN argN, Holder<RetType> ret) {
+    }
+}
+```
+
+Another example is writing a Binary Tree Clone procedure
+
+Typical recursive one
+
+```java
+TreeNode clone(TreeNode root) {
+    if (null == root) {
+        return null;
+    }
+    TreeNode newNode = new TreeNode(node.val);
+    newNode.left = clone(root.left);
+    newNode.right = clone(root.right);
+    return newNode;
+}
+```
+
+By using `IterativeTransformer`
+
+```java
+TreeNode clone(TreeNode root) {
+    Holder<TreeNode> ret = new Holder<>();
+    IterativeTransformer transformer = new IterativeTransformer();
+    transformer.recursiveCall(() -> new Cloner(root, ret, transformer));
+    transformer.evaluate();
+    return ret.get();
+}
+
+class Cloner {
+    private Cloner(TreeNode node, Holder<TreeNode> ret, IterativeTransformer transformer) {
+        if (null == node) {
+            return;
+        }
+        transformer.wrap(() -> ret.set(new TreeNode(node.val)));
+        {
+            Holder<TreeNode> rret = new Holder<>();
+            transformer.recursiveCall(() -> new Cloner(node.left, rret, transformer));
+            transformer.wrap(() -> ret.get().left = rret.get());
+        }
+        {
+            Holder<TreeNode> rret = new Holder<>();
+            transformer.recursiveCall(() -> new Cloner(node.right, rret, transformer));
+            transformer.wrap(() -> ret.get().right = rret.get());
+        }
+    }
+}
+```
+
