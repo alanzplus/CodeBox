@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public enum JacksonUtils {
     ;
 
-    private static ObjectMapper getObjectMapper() {
+    private static ObjectMapper createOM() {
         /**
          * configure object mapper only auto detect field
          */
@@ -22,12 +22,16 @@ public enum JacksonUtils {
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
+    public static ObjectMapper newOM() {
+        return createOM();
+    }
+
     public static String serialize(Object obj) throws JsonProcessingException {
-        return serialize(obj, true);
+        return serialize(obj, false);
     }
 
     public static String serialize(Object object, boolean prettyPrint) throws JsonProcessingException {
-        return getObjectMapper()
+        return createOM()
                 .configure(SerializationFeature.INDENT_OUTPUT, prettyPrint)
                 .writeValueAsString(object);
     }
@@ -41,6 +45,6 @@ public enum JacksonUtils {
     }
 
     public static <T> T deserialize(String json, Class<T> type) throws Exception {
-        return getObjectMapper().readValue(json, type);
+        return createOM().readValue(json, type);
     }
 }
