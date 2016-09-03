@@ -16,6 +16,10 @@ public class IterativeTransformer {
         stack.peek().thunks.add(() -> {
             stack.push(new Frame());
             thunk.evaluate();
+            /**
+             * Same as :
+             * stack.peek().thunks.add(() -> stack.pop());
+             */
             stack.peek().thunks.add(stack::pop);
         });
         if (first) {
