@@ -1,6 +1,6 @@
-Code Sandbox
+Code Box
 --
-This repo servers as a collection of implemetions of data structure and algorithms
+This repo servers as a collection of implemetions for common utilities, data structures and algorithms
 
 ## Java Based Implementation
 
