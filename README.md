@@ -1,8 +1,12 @@
 Code Box
 --
-This repo servers as a collection of implemetions for common utilities, data structures and algorithms
+Collections of my implementations for Common Utilities, Data Structures and Algorithms (in different languages)
 
-## Java Based Implementation
+## Languages
+* Java
+* Racket
+
+## Java
 
 ### FastLFU
 A constant time LFU implmentation based on paper [An O(1) algorithm for implementing the LFU cache eviction scheme](http://dhruvbird.com/lfu.pdf).
@@ -159,18 +163,19 @@ class Cloner {
 }
 ```
 
-## Racket Based Implementation
+## Racket
+
 ### Parse Prefix Symbolic Algebra Expression
-[Left Parsing](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt)
+[Left Parsing](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt#L66)
 
 From `(* a b c (+ a c) (^ a 3))` to `(* (* (* (* a b) c) (+ a c)) (^ a 3))`
 
-[Right Parsing](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt)
+[Right Parsing](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt#L83)
 
 From `(* a b c (+ a c) (^ a 3))` to `(* a (* b (* c (* (+ a c) (^ a 3)))))`
 
 ### Calculate Differentiation of Symbolic Algebra Expression
 
-[Differentiation of Symbolic Expression expressed by Prefix Notation](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt)
+[Differentiation of Symbolic Expression expressed by Prefix Notation](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt#L93)
 
 Given `(* x y (+ x 3)) 'x)`, output `(+ (* x y) (* (+ x 3) y))`
