@@ -8,7 +8,7 @@ This repo servers as a collection of implemetions for common utilities, data str
 A constant time LFU implmentation based on paper [An O(1) algorithm for implementing the LFU cache eviction scheme](http://dhruvbird.com/lfu.pdf).
 
 ### Iterative Transformer
-[IterativeTransformer](https://github.com/alanzplus/Sandbox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/IterativeTransformer.java) is a really tiny and simple framework (40 lines of code) for writing iterative program in a recursive like fashion.
+[IterativeTransformer](https://github.com/alanzplus/codebox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/IterativeTransformer.java) is a really tiny and simple framework (40 lines of code) for writing iterative program in a recursive like fashion.
 
 For example, given the following binary tree data structure
 
@@ -159,3 +159,18 @@ class Cloner {
 }
 ```
 
+## Racket Based Implementation
+### Parse Prefix Symbolic Algebra Expression
+[Left Parsing](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt)
+
+From `(* a b c (+ a c) (^ a 3))` to `(* (* (* (* a b) c) (+ a c)) (^ a 3))`
+
+[Right Parsing](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt)
+
+From `(* a b c (+ a c) (^ a 3))` to `(* a (* b (* c (* (+ a c) (^ a 3)))))`
+
+### Calculate Differentiation of Symbolic Algebra Expression
+
+[Differentiation of Symbolic Expression expressed by Prefix Notation](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt)
+
+Given `(* x y (+ x 3)) 'x)`, output `(+ (* x y) (* (+ x 3) y))`
