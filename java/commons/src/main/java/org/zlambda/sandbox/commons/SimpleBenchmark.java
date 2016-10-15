@@ -55,15 +55,15 @@ public class SimpleBenchmark {
     public <R> void eval(Action<R> action, PostAction<R> postAction, int times, String msg) {
         Preconditions.checkArgument(times > 0, "Execution times should be positive but given " + times);
         Preconditions.checkArgument(null != action, "Action cannot be null");
-        postAction = null == postAction ? (res) -> {} : postAction;
+        postAction = null == postAction ? (res, t) -> {} : postAction;
 
         List<Long> executionTime = new ArrayList<>();
         for (int i = 0; i < times; ++i) {
             long beg = System.nanoTime();
-            R res = action.execute();
+            R res = action.execute(i);
             long t = System.nanoTime() - beg;
             executionTime.add(t);
-            postAction.execute(res);
+            postAction.execute(res, i);
         }
 
         double first = executionTime.get(0) / divider;
@@ -81,11 +81,11 @@ public class SimpleBenchmark {
 
     @FunctionalInterface
     public interface Action<R> {
-        R execute();
+        R execute(int times);
     }
 
     @FunctionalInterface
     public interface PostAction<R> {
-        void execute(R res);
+        void execute(R res, int times);
     }
 }

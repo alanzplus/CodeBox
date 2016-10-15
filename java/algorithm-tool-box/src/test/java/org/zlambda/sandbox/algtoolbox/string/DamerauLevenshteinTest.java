@@ -16,15 +16,15 @@ public class DamerauLevenshteinTest {
             String str2 = "";
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein().distance(str1, str2),
-                    (res) -> Assert.assertEquals(0, (int) res),
+                    (t) -> new DamerauLevenshtein().distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(0, (int) res),
                     100,
                     String.format("Damerau-Levenshtein Iterative (\"%s\", \"%s\")", str1, str2)
             );
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(false).distance(str1, str2),
-                    (res) -> Assert.assertEquals(0, (int) res),
+                    (t) -> new DamerauLevenshtein(false).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(0, (int) res),
                     100,
                     String.format("Damerau-Levenshtein Recursive (\"%s\", \"%s\")", str1, str2)
             );
@@ -35,15 +35,15 @@ public class DamerauLevenshteinTest {
             String str2 = "aba";
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(true).distance(str1, str2),
-                    (res) -> Assert.assertEquals(1, (int) res),
+                    (t) -> new DamerauLevenshtein(true).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(1, (int) res),
                     100,
                     String.format("Damerau-Levenshtein Iterative (\"%s\", \"%s\")", str1, str2)
             );
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(false).distance(str1, str2),
-                    (res) -> Assert.assertEquals(1, (int) res),
+                    (t) -> new DamerauLevenshtein(false).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(1, (int) res),
                     100,
                     String.format("Damerau-Levenshtein Recursive (\"%s\", \"%s\")", str1, str2)
             );
@@ -54,15 +54,15 @@ public class DamerauLevenshteinTest {
             String str2 = "heaver";
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(true).distance(str1, str2),
-                    (res) -> Assert.assertEquals(3, (int)res),
+                    (t) -> new DamerauLevenshtein(true).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(3, (int)res),
                     100,
                     String.format("Damerau-Levenshtein Iterative (\"%s\", \"%s\")", str1, str2)
             );
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(false).distance(str1, str2),
-                    (res) -> Assert.assertEquals(3, (int)res),
+                    (t) -> new DamerauLevenshtein(false).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(3, (int)res),
                     100,
                     String.format("Damerau-Levenshtein Recursive (\"%s\", \"%s\")", str1, str2)
             );
@@ -73,15 +73,15 @@ public class DamerauLevenshteinTest {
             String str2 = "bc";
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(true).distance(str1, str2),
-                    (res) -> Assert.assertEquals(2, (int)res),
+                    (t) -> new DamerauLevenshtein(true).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(2, (int)res),
                     100,
                     String.format("Damerau-Levenshtein Iterative (\"%s\", \"%s\")", str1, str2)
             );
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(false).distance(str1, str2),
-                    (res) -> Assert.assertEquals(2, (int)res),
+                    (t) -> new DamerauLevenshtein(false).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(2, (int)res),
                     100,
                     String.format("Damerau-Levenshtein Recursive (\"%s\", \"%s\")", str1, str2)
             );
@@ -92,15 +92,15 @@ public class DamerauLevenshteinTest {
             String str2 = "er";
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(true).distance(str1, str2),
-                    (res) -> Assert.assertEquals(5, (int)res),
+                    (t) -> new DamerauLevenshtein(true).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(5, (int)res),
                     100,
                     String.format("Damerau-Levenshtein Iterative (\"%s\", \"%s\")", str1, str2)
             );
 
             benchmark.eval(
-                    () -> new DamerauLevenshtein(false).distance(str1, str2),
-                    (res) -> Assert.assertEquals(5, (int)res),
+                    (t) -> new DamerauLevenshtein(false).distance(str1, str2),
+                    (res, t) -> Assert.assertEquals(5, (int)res),
                     100,
                     String.format("Damerau-Levenshtein Recursive (\"%s\", \"%s\")", str1, str2)
             );
