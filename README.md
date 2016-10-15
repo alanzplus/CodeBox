@@ -15,6 +15,9 @@ Collections of my implementations for Common Utilities, Data Structures and Algo
 #### Levenshtein Distance
 [Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/Levenshtein.java)
 
+#### Damerau-Levenshtein Distance
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/DamerauLevenshtein.java)
+
 ### MISC
 
 #### FastLFU
