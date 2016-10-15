@@ -5,13 +5,22 @@ Collections of my implementations for Common Utilities, Data Structures and Algo
 ## Languages
 * Java
 * Racket
+* Ruby
+* Scala
 
 ## Java
 
-### FastLFU
+### String
+
+#### Levenshtein Distance
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/Levenshtein.java)
+
+### MISC
+
+#### FastLFU
 A constant time LFU implmentation based on paper [An O(1) algorithm for implementing the LFU cache eviction scheme](http://dhruvbird.com/lfu.pdf).
 
-### Iterative Transformer
+#### Iterative Transformer
 [IterativeTransformer](https://github.com/alanzplus/codebox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/IterativeTransformer.java) is a really tiny and simple framework (40 lines of code) for writing iterative program in a recursive like fashion.
 
 For example, given the following binary tree data structure
@@ -162,6 +171,7 @@ class Cloner {
     }
 }
 ```
+
 
 ## Racket
 
