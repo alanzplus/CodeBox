@@ -14,9 +14,29 @@ Collections of my implementations for Common Utilities, Data Structures and Algo
 
 #### Levenshtein Distance
 [Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/Levenshtein.java)
+```java
+String str1 = " Helol distance ?";
+String str2 = "Hello Distance!";
+StringDistance levenshtein = new Levenshtein();
+System.out.println(levenshtein.distance(str1, str2));
+System.out.println(levenshtein.explain());
+// output
+// 7
+// 'DELETE " ", KEEP "H", KEEP "e", KEEP "l", DELETE "o", KEEP "l", INSERT "o", KEEP " ", REPLACE "d" BY "D", KEEP "i", KEEP "s", INSERT "t", KEEP "a", KEEP "n", KEEP "c", KEEP "e", REPLACE " " BY "!", DELETE "?"'
+```
 
 #### Damerau-Levenshtein Distance
 [Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/DamerauLevenshtein.java)
+```java
+String str1 = " Helol distance ?";
+String str2 = "Hello Distance!";
+StringDistance levenshtein = new DamerauLevenshtein();
+System.out.println(levenshtein.distance(str1, str2));
+System.out.println(levenshtein.explain());
+// output
+// 6
+// 'DELETE " ", KEEP "H", KEEP "e", KEEP "l", SWAP "o" and "l", KEEP " ", REPLACE "d" BY "D", KEEP "i", KEEP "s", INSERT "t", KEEP "a", KEEP "n", KEEP "c", KEEP "e", REPLACE " " BY "!", DELETE "?"'
+```
 
 ### MISC
 
