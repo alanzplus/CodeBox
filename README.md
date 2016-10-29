@@ -212,3 +212,225 @@ From `(* a b c (+ a c) (^ a 3))` to `(* a (* b (* c (* (+ a c) (^ a 3)))))`
 [Differentiation of Symbolic Expression expressed by Prefix Notation](https://github.com/alanzplus/codebox/blob/master/racket/algebra.rkt#L93)
 
 Given `(* x y (+ x 3)) 'x)`, output `(+ (* x y) (* (+ x 3) y))`
+
+### Y Combinator
+The following writting is my reading notes taken from [The Y Combinator (Slight Return)](http://mvanier.livejournal.com/2897.html)
+
+### What is a combinator
+A combinator is just a lambda expression but without any free variables.
+
+### How to define a recurisve anoymous function
+For example, we have the following recursive factorial function
+
+```scheme
+(define fact
+  (lambda (n)
+    (if (= n 1)
+        1
+        (* n (fact (- n 1))))))
+```
+
+Now if we are asked to define the factorial function without explicitly recursively calls in the defintion. In other words, we are not allowed to use the function name inside the function's definition. But wait, is it possible to do that? Define a recurisve function without calling its name ?
+
+```scheme
+(define fact
+  (lambda (n)
+    (if (= n 1)
+        1
+        (* n (<???> (- n 1))))))
+```
+
+So the thought here is could we use a formal variable to capture the defintion the function, like the following (1)
+
+```scheme
+(define fact
+  (lambda (f)
+    (lambda (n)
+      (if (= 0 n)
+          1
+          (* n (f (- n 1)))))))
+```
+
+Then we can use it in this way
+
+```schem
+((fact fact) 5) # this will not work
+```
+
+But wait, actually the above code is not correct since `fact` now is a function takes two arguments. And as a result `(f (- n 1))` is not corret.
+
+Let's refine its definition
+
+```scheme
+(define fact
+  (lambda (f)
+    (lambda (n)
+      (if (= 0 n)
+          1
+          (* n ((f f) (- n 1)))))))
+```
+
+And now it will be interpreted correctly
+
+```scheme
+((fact fact) 5) ; => 120
+```
+
+And now can we do better? remove the `(f f)` and keep using the defintion of (1) ? Yes we can use another formal variable to capture `(f f)`
+
+```scheme
+(define fact
+  (lambda (f)
+    ((lambda (f)
+      (lambda (n)
+        (if (= 0 n)
+            1
+            (* n (f (- n 1))))))
+     (f f))))
+```
+
+But this still cannot work, because the non-lazy nature of scheme, when we call the following, `(f f)` will cause infinite recursion.
+
+```scheme
+((fact fact) 5)
+```
+
+But we know that `(f f)` actually returens a function that accept a single argument. So the following definition is same as `(f f)`
+
+```scheme
+(lambda (x) ((f f) x))
+```
+
+So we can change the defintion into
+
+```scheme
+(define fact
+  (lambda (f)
+    ((lambda (f)
+      (lambda (n)
+        (if (= 0 n)
+            1
+            (* n (f (- n 1))))))
+     (lambda (x) ((f f) x)))))
+```
+
+And here let's define
+
+```scheme
+(define special-form-fact
+  (lambda (f)
+    (lambda (n)
+      (if (= 0 n)
+          1
+          (* n (f (- n 1)))))))
+```
+
+Then we will have
+
+```scheme
+(define fact
+  (lambda (f)
+    (special-form-fact
+     (lambda (x) ((f f) x)))))
+```
+
+and the following will work as expected
+
+```scheme
+((fact fact) 5) ; => 120
+```
+
+And could we do even better? Could we remove `(fact fact)` ? Yes we can use the following lambda expression to achieve the same thing as `(fact fact)`
+
+```schem
+(lambda (x) (x x))
+```
+
+So we will have our final factorial function
+
+```scheme
+(define fact
+    ((lambda (x) (x x))
+     (lambda (f)
+       (special-form-fact
+        (lambda (x) ((f f) x))))))
+```
+
+and the following will work as expected
+
+```scheme
+(fact 5) ; => 120
+```
+
+But wait a minute, the above definition can be generalized. We can replace the `special-form-fact` with a formal argument and make it into a function that taks a non-recursive function and return a its recursive function.
+
+```scheme
+(define Y
+  (lambda (f)
+    ((lambda (x) (x x))
+     (lambda (y) (f (lambda (x) ((y y) x)))))))
+```
+
+This is the definition of `Applicative-Order Y-Combinator`. (as opposed to the `Normal-Order Y-Combinator`)
+
+Then we can define our `fact` as
+
+```scheme
+(define fact (Y special-form-fact))
+```
+
+### What is Y ?
+Y is a function which accepts a function as an argument and return the fix-point of that function.
+
+What is the fix-point of a function? By definition, given function `f(x)`, then its fix-point is value such that
+
+`f(fix-point) = fix-point`
+
+So
+
+`f(f(f(..(f(fix-point))))) = fix-point`
+
+So how to derive Y ?
+
+As we know, by definition, `Y(f) = fix-point`. Then we can subsutitue it into `f(fix-point)`. So we get
+
+```
+Y(f) = f(Y(f))
+```
+
+Then could we prove the following definition of Y is a fix-point combinator ?
+
+```scheme
+(define Y
+  (lambda (f)
+    ((lmabda (x) (x x))
+     (lambda (y) (f lambda (x) ((y y) x))))))
+```
+
+In order to prove it we need to show `Y(f) = f(Y(f))`. So we apply f to Y then
+
+```
+(Y f) 
+=>
+  ((lambda (x) (x x))
+   (lambda (y) (f (lambda (x) ((y y) x)))))
+   
+=>
+(
+ (lambda (y) (f (lambda (x) ((y y) x))))
+ (lambda (y) (f (lambda (x) ((y y) x))))
+)
+
+=>
+let k = (lambda (y) (f (lambda (x) ((y y) x))))
+so (Y f) = (k k)
+
+=>
+(f (lambda (x) ((k k) x)))
+
+=>
+(f (lambda (x) ((Y f) x)))
+```
+
+### Why the original problem related the finding fix-point of function
+The original problem is about define a recursive function without explicitly calling its name in its definition. How is it generalized as fix-point problem? Please check the original post.
