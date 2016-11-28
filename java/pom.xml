@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.zlambda.sandbox</groupId>
-    <artifactId>sandbox</artifactId>
+    <groupId>org.zlambda.codebox</groupId>
+    <artifactId>codebox</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -42,12 +42,12 @@
         <dependencies>
             <!--internal dependencies-->
             <dependency>
-                <groupId>org.zlambda.sandbox.algtoolbox</groupId>
+                <groupId>org.zlambda.codebox.algtoolbox</groupId>
                 <artifactId>algorithm-tool-box</artifactId>
                 <version>${algorithm-toolbox.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.zlambda.sandbox.commons</groupId>
+                <groupId>org.zlambda.codebox.commons</groupId>
                 <artifactId>commons</artifactId>
                 <version>${commons.version}</version>
             </dependency>
