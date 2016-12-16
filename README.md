@@ -13,6 +13,9 @@ Collections of my implementations for Common Utilities, Data Structures and Algo
     * String
         * Levenshtein Distance
         * Damerau-Levenshtein Distance
+    * Sparse Array
+      * Sparse Immutable Array (Page Based)
+      * Sparse Immutable Array (Binary Search Based)
     * MISC
         * Fast-LFU
         * Iterative-Tranformer
@@ -50,6 +53,26 @@ System.out.println(levenshtein.explain());
 // 6
 // 'DELETE " ", KEEP "H", KEEP "e", KEEP "l", SWAP "o" and "l", KEEP " ", REPLACE "d" BY "D", KEEP "i", KEEP "s", INSERT "t", KEEP "a", KEEP "n", KEEP "c", KEEP "e", REPLACE " " BY "!", DELETE "?"'
 ```
+
+### Sparse Array
+
+* We can also use `HashMap`, it depends on your requirement.
+
+#### Immutable Sparse Array (Page Based)
+
+[Code Ref](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/codebox/algtoolbox/misc/ImmutableSparseArray.java)
+
+Memory footprint depends on the actual input data but random access guarantee to be O(1)
+
+Idea of this implementation is like the OS memory management. 
+
+TODO: add graph to illustrate it.
+
+#### Immutable Sparse Array (Binary Search Based)
+
+[Code Ref](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/codebox/algtoolbox/misc/ImmutableSparseArray.java)
+
+Memory usage is really compact is O(number of elements) and random access guarantee to be O(Log(number of elements))
 
 ### MISC
 
