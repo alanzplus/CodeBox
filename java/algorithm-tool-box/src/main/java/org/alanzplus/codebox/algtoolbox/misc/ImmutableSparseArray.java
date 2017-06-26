@@ -84,21 +84,16 @@ public interface ImmutableSparseArray<V> extends SparseArray<V> {
     }
 
     /**
-     * 1. pagePtr [ page_0 begOffset | page_1 begOffset | ... | page_(N-1) begOffset ] N =
-     * (len(keySpace) + pageSize - 1) / pageSize
+     * 1. Allocate a values array of same size with actual existing values
+     * Object[] values = new Object[SIZE_OF_ACTUAL_EXISTING_VALUES];
      *
-     * offset points to the page beginning index in the values array. if offset is null, means there
-     * this page is empty, there is no entries in values for this page
+     * 2. Allocate two arrays related to index lookup
+     * 2.1 pagePtr array. Its size = index_space_size / page_size.
+     * 2.2 pages array. Its size = page_size * pagePtr.length
      *
-     * 2. values [ 0...(N-1) ] N = numberOfNonEmptyPage * pageSize
-     *
-     *
-     * 3. structure pagePtr [ page_0 begOffset | page_1 begOffset NULL | ... | page_(N-1) begOffset
-     * ] |                                                 | |
-     * ------------------------------- |                  | \/                 \/ values [ ....
-     * |       ]
+     * 3. so the lookup will become
+     * value = values[ page_size * pagePtr[index / page_size] + index % page_size ]
      */
-
     @VisibleForTesting
     static class PageBasedImpl<V> implements ImmutableSparseArray<V> {
       private final int length;
@@ -140,6 +135,8 @@ public interface ImmutableSparseArray<V> extends SparseArray<V> {
 
   /**
    * Binary Search Based Implementation
+   * 1. allocate an array storing keys having associate values
+   * 2. allocate an array storing values having associate keys
    */
   class BinarySearchBasedBuilder<V> {
     private final SortedMap<Integer, V> kvs = new TreeMap<>();
@@ -182,8 +179,7 @@ public interface ImmutableSparseArray<V> extends SparseArray<V> {
 
       @Override
       public long mem() {
-        return SizeEstimator.intArrShallow(keys.length) + SizeEstimator.refArrShallow(
-            values.length);
+        return SizeEstimator.intArrShallow(keys.length) + SizeEstimator.refArrShallow(values.length);
       }
     }
   }
