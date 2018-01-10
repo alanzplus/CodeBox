@@ -19,6 +19,7 @@ Collections of my implementations for Common Utilities, Data Structures and Algo
     * MISC
         * Fast-LFU
         * Iterative-Tranformer
+        * AsyncIterator
 * Racket
     * Parse Prefix Symbolic Algebra Expression
     * Calculate Differentiation of Symbolic Algebra Expression
@@ -231,6 +232,22 @@ class Cloner {
 }
 ```
 
+#### AsyncIterator
+An interator implemented using the producer-consumer pattern.
+
+```java
+AsyncIterator asyncIterator = AsyncIterator.<String>custom()
+  .ofSuppliers(
+    heavyTaskSupplier1(),
+    heavyTaskSupplier2(),
+    ...
+  )
+  .create();
+
+while (asyncIterator.hasNext()) {
+  doSomething(asyncIterator.next());
+}
+```
 
 ## Racket
 

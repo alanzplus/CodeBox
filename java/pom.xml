@@ -26,7 +26,7 @@
     <mockito.version>1.9.5</mockito.version>
     <okhttp.version>3.3.1</okhttp.version>
     <jsoup.version>1.9.2</jsoup.version>
-    <guava.version>19.0</guava.version>
+    <guava.version>23.6-jre</guava.version>
     <jackson.version>2.7.0</jackson.version>
     <apache.commons.io.version>2.4</apache.commons.io.version>
     <apache.commons.lang3.version>3.4</apache.commons.lang3.version>
@@ -76,8 +76,8 @@
         <version>${jsoup.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.google.guave</groupId>
-        <artifactId>guave</artifactId>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
         <version>${guava.version}</version>
       </dependency>
       <dependency>
