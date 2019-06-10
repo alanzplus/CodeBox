@@ -1,6 +1,6 @@
 Code Box
 --
-Collections of my implementations for Common Utilities, Data Structures and Algorithms (in different languages)
+Collections of my implementations for Common Utilities, Data Structures and Algorithms in different languages.
 
 ## Languages
 * Java
@@ -30,7 +30,7 @@ Collections of my implementations for Common Utilities, Data Structures and Algo
 ### String
 
 #### Levenshtein Distance
-[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/Levenshtein.java)
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/string/Levenshtein.java)
 ```java
 String str1 = " Helol distance ?";
 -String str2 = "Hello Distance!";
@@ -43,7 +43,7 @@ System.out.println(levenshtein.explain());
 ```
 
 #### Damerau-Levenshtein Distance
-[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/string/DamerauLevenshtein.java)
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/string/DamerauLevenshtein.java)
 ```java
 String str1 = " Helol distance ?";
 String str2 = "Hello Distance!";
@@ -61,7 +61,7 @@ System.out.println(levenshtein.explain());
 
 #### Immutable Sparse Array (Page Based)
 
-[Code Ref](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/codebox/algtoolbox/misc/ImmutableSparseArray.java)
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/misc/ImmutableSparseArray.java#L23)
 
 Memory footprint depends on the actual input data but random access guarantee to be O(1)
 
@@ -71,17 +71,24 @@ TODO: add graph to illustrate it.
 
 #### Immutable Sparse Array (Binary Search Based)
 
-[Code Ref](https://github.com/alanzplus/CodeBox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/codebox/algtoolbox/misc/ImmutableSparseArray.java)
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/misc/ImmutableSparseArray.java#L133)
 
 Memory usage is really compact is O(number of elements) and random access guarantee to be O(Log(number of elements))
 
-### MISC
+### Cache
 
 #### FastLFU
 A constant time LFU implmentation based on paper [An O(1) algorithm for implementing the LFU cache eviction scheme](http://dhruvbird.com/lfu.pdf).
 
+[Implementaion](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/cache/FastLFU.java)
+
+#### Simple LRU
+[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/cache/SimpleLRU.java)
+
+### MISC
+
 #### Iterative Transformer
-[IterativeTransformer](https://github.com/alanzplus/codebox/blob/master/java/algorithm-tool-box/src/main/java/org/zlambda/sandbox/algtoolbox/IterativeTransformer.java) is a really tiny and simple framework (40 lines of code) for writing iterative program in a recursive like fashion.
+[IterativeTransformer](https://github.com/alanzplus/CodeBox/blob/master/java/src/main/java/com/github/alanzplus/codebox/misc/IterativeTransformer.java) enables writting iterative program in a recursive like fashion.
 
 For example, given the following binary tree data structure
 
@@ -233,7 +240,7 @@ class Cloner {
 ```
 
 #### AsyncIterator
-[Implementation](https://github.com/alanzplus/CodeBox/blob/master/java/commons/src/main/java/org/alanzplus/codebox/commons/AsyncIterator.java#L43)
+[Implementation](https://github.com/alanzplus/CodeBox/blob/705cccf50be7162c2ad7a01ecba36834a43e0d65/java/commons/src/main/java/org/alanzplus/codebox/commons/AsyncIterator.java)
 
 An interator implemented using the producer-consumer pattern.
 
