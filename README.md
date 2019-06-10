@@ -2,29 +2,6 @@ Code Box
 --
 Collections of my implementations for Common Utilities, Data Structures and Algorithms in different languages.
 
-## Languages
-* Java
-* Racket
-* Ruby
-* Scala
-
-## Index
-* Java
-    * String
-        * Levenshtein Distance
-        * Damerau-Levenshtein Distance
-    * Sparse Array
-      * Sparse Immutable Array (Page Based)
-      * Sparse Immutable Array (Binary Search Based)
-    * MISC
-        * Fast-LFU
-        * Iterative-Tranformer
-        * AsyncIterator
-* Racket
-    * Parse Prefix Symbolic Algebra Expression
-    * Calculate Differentiation of Symbolic Algebra Expression
-    * Y Combinator
-
 ## Java
 
 ### String
